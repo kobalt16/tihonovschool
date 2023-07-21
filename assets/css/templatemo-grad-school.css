@@ -149,7 +149,9 @@ a.menu-link { display: none; }
 }
 
 /* Header */
-
+.logo-main {
+  margin-top: -18px;
+}
 @media screen and (max-width: 1050px) {
   .main-header .logo {
       padding-left: 30px!important;
