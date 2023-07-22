@@ -451,19 +451,20 @@
             <div class="row">
               <div class="col-md-6">
                   <fieldset>
-                    <input name="name2" type="text" class="form-control" id="name" placeholder="Ваше Имя" required="">
+                    <input name="name" type="text" class="form-control" id="name" placeholder="Ваше Имя" required="">
                   </fieldset>
                 </div>
                 <div class="col-md-6">
                   <fieldset>
-                    <input name="email2" type="text" class="form-control" id="email" placeholder="Ваш Email" required="">
+                    <input name="email" type="text" class="form-control" id="email" placeholder="Ваш Email" required="">
                   </fieldset>
                 </div>
               <div class="col-md-12">
                 <fieldset>
-                  <textarea name="message2" rows="6" class="form-control" id="message" placeholder="Ваше сообщение..." required=""></textarea>
+                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Ваше сообщение..." required=""></textarea>
                 </fieldset>
               </div>
+              <div id="success_sec" class="alert alert-success ml-3" role="alert" style="display: none;"></div>
               <div class="col-md-12">
                 <fieldset>
                   <button type="submit" id="form-submit2" class="button">Отправить сейчас</button>
@@ -602,28 +603,31 @@
         })
       })
     </script>
-    <!-- <script>
-      const TOKEN = "6630123995:AAEDuY86SERX8bEHfxwTuOu9B8sEhutYa64";
-      const CHAT_ID = "-1001892138086";
-      const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
+    <script>
+      const TOKEN_SEC = "6630123995:AAEDuY86SERX8bEHfxwTuOu9B8sEhutYa64";
+      const CHAT_ID_SEC = "-1001892138086";
+      const URI_API_SEC = `https://api.telegram.org/bot${ TOKEN_SEC }/sendMessage`;
 
       document.getElementById('contact_second_form').addEventListener('submit', function(e) {
         e.preventDefault();
       
-        let message1 = `<b>Форма №2!</b>\n`;
-        message1 += `<b>Отправил: </b> ${ this.name2.value }\n`;
-        message1 += `<b>Почта: </b> ${ this.email2.value }\n`;
-        message1 += `<b>Сообщение: </b> ${ this.message2.value }\n`;
+        let message = `<b>Форма №2!</b>\n`;
+        message += `<b>Отправил: </b> ${ this.name.value }\n`;
+        message += `<b>Почта: </b> ${ this.email.value }\n`;
+        message += `<b>Сообщение: </b> ${ this.message.value }\n`;
 
-        axios.post(URI_API, {
-          chat_id: CHAT_ID,
+        console.log(message);
+        axios.post(URI_API_SEC, {
+          chat_id: CHAT_ID_SEC,
           parse_mode: 'html',
           text: message
         })
         .then((res) => {
-          this.name2.value = "";
-          this.email2.value = "";
-          this.message2.value = "";
+          this.name.value = "";
+          this.email.value = "";
+          this.message.value = "";
+          success_sec.innerHTML = "отправлено!"
+          success_sec.style.display = "block";
         })
         .catch((err) => {
           console.warn(err);
@@ -632,6 +636,6 @@
           console.log('finish')
         })
       })
-    </script> -->
+    </script>
 </body>
 </html>
