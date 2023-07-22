@@ -1528,6 +1528,16 @@ section.contact form button {
     border: none;
 }
 
+/* Socials */
+section.socials {
+  background-image: url(../images/choosing-bg.jpg);
+    margin: auto;
+}
+.socials-to {
+  margin: auto;
+  text-align: center;
+}
+
 /* Footer */
 
 footer {
