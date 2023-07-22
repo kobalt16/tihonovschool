@@ -221,7 +221,7 @@
             <div class="top-content">
               <h6>Напишите <em>ваши контакты</em> и мы вам перезвоним или отправим приглашение на почту</h6>
             </div>
-            <form id="contact" action="" method="get">
+            <form id="contact_first_form" action="">
               <div class="row">
                 <div class="col-md-12">
                   <fieldset>
@@ -235,9 +235,10 @@
                 </div>
                 <div class="col-md-12">
                   <fieldset>
-                    <input name="phone-number" type="text" class="form-control" id="phone-number" placeholder="Ваш номер телефона" required="">
+                    <input name="phone_number" type="text" class="form-control" id="phone_number" placeholder="Ваш номер телефона" required="">
                   </fieldset>
                 </div>
+                <div id="success" class="alert alert-success ml-3" role="alert" style="display: none;"></div>
                 <div class="col-md-12">
                   <fieldset>
                     <button type="submit" id="form-submit" class="button">Получить</button>
@@ -445,26 +446,26 @@
         </div>
         <div class="col-md-6">
                     
-          <form id="contact" action="" method="post">
+          <form id="contact_second_form" action="">
             <div class="row">
               <div class="col-md-6">
                   <fieldset>
-                    <input name="name" type="text" class="form-control" id="name" placeholder="Ваше Имя" required="">
+                    <input name="name2" type="text" class="form-control" id="name" placeholder="Ваше Имя" required="">
                   </fieldset>
                 </div>
                 <div class="col-md-6">
                   <fieldset>
-                    <input name="email" type="text" class="form-control" id="email" placeholder="Ваш Email" required="">
+                    <input name="email2" type="text" class="form-control" id="email" placeholder="Ваш Email" required="">
                   </fieldset>
                 </div>
               <div class="col-md-12">
                 <fieldset>
-                  <textarea name="message" rows="6" class="form-control" id="message" placeholder="Ваше сообщение..." required=""></textarea>
+                  <textarea name="message2" rows="6" class="form-control" id="message" placeholder="Ваше сообщение..." required=""></textarea>
                 </fieldset>
               </div>
               <div class="col-md-12">
                 <fieldset>
-                  <button type="submit" id="form-submit" class="button">Отправить сейчас</button>
+                  <button type="submit" id="form-submit2" class="button">Отправить сейчас</button>
                 </fieldset>
               </div>
             </div>
@@ -564,5 +565,72 @@
           checkSection();
         });
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+      const TOKEN = "6630123995:AAEDuY86SERX8bEHfxwTuOu9B8sEhutYa64";
+      const CHAT_ID = "-1001892138086";
+      const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
+      const success = document.getElementById('success');
+
+      document.getElementById('contact_first_form').addEventListener('submit', function(e) {
+        e.preventDefault();
+      
+        let message = `<b>Форма №1!</b>\n`;
+        message += `<b>Отправил: </b> ${ this.name.value }\n`;
+        message += `<b>Почта: </b> ${ this.email.value }\n`;
+        message += `<b>Телефон: </b> ${ this.phone_number.value }\n`;
+
+        axios.post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: 'html',
+          text: message
+        })
+        .then((res) => {
+          this.name.value = "";
+          this.email.value = "";
+          this.phone_number.value = "";
+          success.innerHTML = "отправлено!"
+          success.style.display = "block";
+        })
+        .catch((err) => {
+          console.warn(err);
+        })
+        .finally(() => {
+          console.log('finish')
+        })
+      })
+    </script>
+    <!-- <script>
+      const TOKEN = "6630123995:AAEDuY86SERX8bEHfxwTuOu9B8sEhutYa64";
+      const CHAT_ID = "-1001892138086";
+      const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`;
+
+      document.getElementById('contact_second_form').addEventListener('submit', function(e) {
+        e.preventDefault();
+      
+        let message1 = `<b>Форма №2!</b>\n`;
+        message1 += `<b>Отправил: </b> ${ this.name2.value }\n`;
+        message1 += `<b>Почта: </b> ${ this.email2.value }\n`;
+        message1 += `<b>Сообщение: </b> ${ this.message2.value }\n`;
+
+        axios.post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: 'html',
+          text: message
+        })
+        .then((res) => {
+          this.name2.value = "";
+          this.email2.value = "";
+          this.message2.value = "";
+        })
+        .catch((err) => {
+          console.warn(err);
+        })
+        .finally(() => {
+          console.log('finish')
+        })
+      })
+    </script> -->
 </body>
 </html>
